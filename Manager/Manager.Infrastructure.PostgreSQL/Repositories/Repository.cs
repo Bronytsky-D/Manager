@@ -17,25 +17,25 @@ namespace Manager.Infrastructure.PostgreSQL.Repositories
         {
             _context = context;
         }
-        public async Task<IExecutionResponse> GetAll()
+        public async Task<IExecutionResponse> GetAllAsync()
         {
             var result = await _context.Set<T>().ToListAsync();
             return ExecutionResponse.Successful(result);
         }
-        public async Task<IExecutionResponse> GetById(Expression<Func<T, bool>> predicate)
+        public async Task<IExecutionResponse> GetByIdAsync(Expression<Func<T, bool>> predicate)
         {
             var result = await _context.Set<T>().Where(predicate).ToListAsync();
             return ExecutionResponse.Successful(result);
         }
-        public async Task<IExecutionResponse> Add(T entity)
+        public async Task<IExecutionResponse> AddAsync(T entity)
         {
-            _context.Set<T>().Add(entity);
+            await _context.Set<T>().AddAsync(entity);
             await _context.SaveChangesAsync();
 
             return ExecutionResponse.Successful(entity);
         }
 
-        public async Task<IExecutionResponse> Delete(T entity)
+        public async Task<IExecutionResponse> DeleteAsync(T entity)
         {
             _context.Set<T>().Remove(entity);
             await _context.SaveChangesAsync();
@@ -43,7 +43,7 @@ namespace Manager.Infrastructure.PostgreSQL.Repositories
             return ExecutionResponse.Successful(entity);
         }
 
-        public async Task<IExecutionResponse> Update(T entity)
+        public async Task<IExecutionResponse> UpdateAsync(T entity)
         {
             _context.Set<T>().Update(entity);
             await _context.SaveChangesAsync();

@@ -5,7 +5,7 @@ namespace Manager.Doman.Entites
 {
     public class TaskEntity
     {
-        public Guid Id = Guid.NewGuid();
+        public Guid Id { get; set; } = Guid.NewGuid();
         public Guid UserId { get; set; }
         public User User { get; set; }
         public string Title { get; set; }

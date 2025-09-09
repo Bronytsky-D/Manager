@@ -1,6 +1,7 @@
 ﻿using Manager.Doman.Entites;
 using Manager.Infrastructure.PostgreSQL.DbContex;
 using Manager.Infrastructure.Repositories;
+using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
 namespace Manager.Infrastructure.PostgreSQL.Repositories
@@ -10,29 +11,42 @@ namespace Manager.Infrastructure.PostgreSQL.Repositories
         private readonly ManagerDbContext _context;
         public TaskRepository(ManagerDbContext context) { _context = context; }
 
-        public Task<IExecutionResponse> Add(TaskEntity entity)
+        public async Task<IExecutionResponse> AddAsync(TaskEntity entity)
         {
-            throw new NotImplementedException();
+            await _context.Tasks.AddAsync(entity);
+            await _context.SaveChangesAsync();
+            
+            return ExecutionResponse.Successful(entity);
         }
 
-        public Task<IExecutionResponse> Delete(TaskEntity entity)
+        public async Task<IExecutionResponse> DeleteAsync(TaskEntity entity)
         {
-            throw new NotImplementedException();
+            _context.Tasks.Remove(entity);
+            await _context.SaveChangesAsync();
+
+            return ExecutionResponse.Successful(entity.Id);
         }
 
-        public Task<IExecutionResponse> GetAll()
+        public async Task<IExecutionResponse> GetAllAsync()
         {
-            throw new NotImplementedException();
+            var result = await _context.Tasks.ToListAsync();
+
+            return ExecutionResponse.Successful(result);
         }
 
-        public Task<IExecutionResponse> GetById(Expression<Func<TaskEntity, bool>> predicate)
+        public async Task<IExecutionResponse> GetByIdAsync(Expression<Func<TaskEntity, bool>> predicate)
         {
-            throw new NotImplementedException();
+            var result = await _context.Tasks.Where(predicate).ToListAsync();
+            
+            return ExecutionResponse.Successful(result);
         }
 
-        public Task<IExecutionResponse> Update(TaskEntity entity)
+        public async Task<IExecutionResponse> UpdateAsync(TaskEntity entity)
         {
-            throw new NotImplementedException();
+            _context.Tasks.Update(entity);
+            await _context.SaveChangesAsync();
+        
+            return ExecutionResponse.Successful(entity.Id);
         }
     }
 }

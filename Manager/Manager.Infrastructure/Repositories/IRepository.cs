@@ -5,10 +5,10 @@ namespace Manager.Infrastructure.Repositories
 {
     public interface IRepository<T> where T : class
     {
-        Task<IExecutionResponse> GetAll();
-        Task<IExecutionResponse> GetById(Expression<Func<T, bool>> predicate);
-        Task<IExecutionResponse> Add(T entity);
-        Task<IExecutionResponse> Update(T entity);
-        Task<IExecutionResponse> Delete(T entity);
+        Task<IExecutionResponse> GetAllAsync();
+        Task<IExecutionResponse> GetByIdAsync(Expression<Func<T, bool>> predicate);
+        Task<IExecutionResponse> AddAsync(T entity);
+        Task<IExecutionResponse> UpdateAsync(T entity);
+        Task<IExecutionResponse> DeleteAsync(T entity);
     }
 }
