@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace Manager.Doman.Enums
 {
-    internal class Prioritys
+    public enum Prioritys
     {
+        Low,        
+        Medium,
+        High
     }
 }

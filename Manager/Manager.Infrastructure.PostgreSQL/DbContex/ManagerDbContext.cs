@@ -1,12 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Manager.Doman.Entites;
+using Microsoft.EntityFrameworkCore;
 
 namespace Manager.Infrastructure.PostgreSQL.DbContex
 {
-    internal class DbContex
+    public class ManagerDbContext : DbContext
     {
+        public ManagerDbContext(DbContextOptions<ManagerDbContext> options) : base(options) { }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<TaskEntity>()
+                .HasOne(t => t.User)
+                .WithMany(u => u.Tasks)
+                .HasForeignKey(t => t.UserId);
+        }
+
+        public DbSet<User> Users { get; set; }
+        public DbSet<TaskEntity> Tasks { get; set; }
+
     }
 }

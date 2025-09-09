@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace Manager.Doman.Enums
 {
-    internal class Status
+    public enum Status
     {
+        Pending,      
+        InProgress,   
+        Completed     
     }
 }
