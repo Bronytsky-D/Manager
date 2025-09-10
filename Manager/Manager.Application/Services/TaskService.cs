@@ -32,9 +32,9 @@ namespace Manager.Application.Services
             return ExecutionResponse.Successful(task.Id);
         }
 
-        public async Task<IExecutionResponse> GetAllTasksAsync()
+        public async Task<IExecutionResponse> GetAllTasksByUserIdAsync(Guid UserId)
         {
-            var result = await _taskRepository.GetAllAsync();
+            var result = await _taskRepository.GetAllTasksByUserIdAsync(UserId);
             if (!result.Success)
                 return ExecutionResponse.Failure(result.Errors);
 
@@ -50,8 +50,10 @@ namespace Manager.Application.Services
             return ExecutionResponse.Successful(result.Result);
         }
 
-        public async Task<IExecutionResponse> UpdateTaskAsync(TaskEntity task)
+        public async Task<IExecutionResponse> UpdateTaskAsync(Guid taskId, TaskEntity task)
         {
+            var taskResult = await _taskRepository.FindOneAsync(t => t.Id == taskId);
+
             var result = await _taskRepository.UpdateAsync(task);
             if (!result.Success)
                 return ExecutionResponse.Failure(result.Errors);

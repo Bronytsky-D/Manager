@@ -1,6 +1,8 @@
 ﻿using Manager.Application.Astraction.Services;
 using Manager.Doman.Entites;
 using Manager.DTOs;
+using Manager.Infrastructure;
+using Manager.Infrastructure.PostgreSQL;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Manager.Controllers
@@ -24,7 +26,7 @@ namespace Manager.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register(AddUserRequstDTO request)
+        public async Task<IExecutionResponse> Register(AddUserRequstDTO request)
         {
             var hashedPassword = _passwordHasherService.HashPassword(request.Password);
             var user = new User
@@ -34,22 +36,22 @@ namespace Manager.Controllers
                 PasswordHash = hashedPassword
             };
             var result = await _userService.CreateUserAsync(user);
-            return Ok(result);
+            return result;
         }
         [HttpPost("login")]
-        public async Task<IActionResult> Login(LoginUserRequestDTO request)
+        public async Task<IExecutionResponse> Login(LoginUserRequestDTO request)
         {
             var userResult = await _userService.FindUserAsync(u => u.UserName == request.UserName);
             if (!userResult.Success) 
-                return Unauthorized();//
+                return ExecutionResponse.Failure("Cant find user with thise user name");
             
             var user = (User)userResult.Result;
             if (!_passwordHasherService.VerifyPassword(user.PasswordHash ,request.Password))
-                return Unauthorized();
+                return ExecutionResponse.Failure("Incorrect password");
 
             var token = _jwtTokenService.GenerateToken(user);
             
-            return Ok(token);
+            return ExecutionResponse.Successful(token);
         }
     }
 }

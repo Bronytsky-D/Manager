@@ -6,10 +6,10 @@ namespace Manager.Application.Astraction.Services
 {
     public interface ITaskService
     {
-        Task<IExecutionResponse> GetAllTasksAsync();
+        Task<IExecutionResponse> GetAllTasksByUserIdAsync(Guid UserId);
         Task<IExecutionResponse> FindTaskAsync(Expression<Func<TaskEntity, bool>> predicate);
         Task<IExecutionResponse> CreateTaskAsync(TaskEntity task);
-        Task<IExecutionResponse> UpdateTaskAsync(TaskEntity task);
+        Task<IExecutionResponse> UpdateTaskAsync(Guid id ,TaskEntity task);
         Task<IExecutionResponse> DeleteTaskAsync(TaskEntity task);
     }
 }

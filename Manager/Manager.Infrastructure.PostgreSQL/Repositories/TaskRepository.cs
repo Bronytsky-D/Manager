@@ -10,6 +10,16 @@ namespace Manager.Infrastructure.PostgreSQL.Repositories
     {
         private readonly ManagerDbContext _context;
         public TaskRepository(ManagerDbContext context) { _context = context; }
+        public async Task<IExecutionResponse> GetAllTasksByUserIdAsync(Guid userId)
+        {
+            var result = await _context.Tasks.Where(t => t.UserId == userId).ToListAsync();
+            return ExecutionResponse.Successful(result);
+        }
+        public async Task<IExecutionResponse> GetAllAsync()
+        {
+            var result = await _context.Tasks.ToListAsync();
+            return ExecutionResponse.Successful(result);
+        }
 
         public async Task<IExecutionResponse> AddAsync(TaskEntity entity)
         {
@@ -27,7 +37,7 @@ namespace Manager.Infrastructure.PostgreSQL.Repositories
             return ExecutionResponse.Successful(entity.Id);
         }
 
-        public async Task<IExecutionResponse> GetAllAsync()
+        public async Task<IExecutionResponse> GetAllByUserIdAsync()
         {
             var result = await _context.Tasks.ToListAsync();
 
