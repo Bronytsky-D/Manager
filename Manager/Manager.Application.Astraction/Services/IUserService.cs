@@ -1,12 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Manager.Doman.Entites;
+using Manager.Infrastructure;
+using System.Linq.Expressions;
 
 namespace Manager.Application.Astraction.Services
 {
-    internal interface IUserService
+    public interface IUserService
     {
+        Task<IExecutionResponse> GetAllUsersAsync();
+        Task<IExecutionResponse> FindUserAsync(Expression<Func<User, bool>> predicate);
+        Task<IExecutionResponse> CreateUserAsync(User user);
+        Task<IExecutionResponse> UpdateUserAsync(User user);
+        Task<IExecutionResponse> DeleteUserAsync(User user);
     }
 }

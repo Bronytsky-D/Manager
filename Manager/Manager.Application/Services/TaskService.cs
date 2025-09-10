@@ -3,6 +3,7 @@ using Manager.Doman.Entites;
 using Manager.Infrastructure;
 using Manager.Infrastructure.PostgreSQL;
 using Manager.Infrastructure.Repositories;
+using System.Linq.Expressions;
 
 namespace Manager.Application.Services
 {
@@ -40,9 +41,9 @@ namespace Manager.Application.Services
             return ExecutionResponse.Successful(result.Result);
         }
 
-        public async Task<IExecutionResponse> GetTaskByIdAsync(Guid id)
+        public async Task<IExecutionResponse> FindTaskAsync(Expression<Func<TaskEntity, bool>> predicate)
         {
-            var result = await _taskRepository.GetByIdAsync(t => t.Id == id);
+            var result = await _taskRepository.FindOneAsync(predicate);
             if (!result.Success)
                 return ExecutionResponse.Failure(result.Errors);
 

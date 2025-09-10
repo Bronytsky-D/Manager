@@ -1,12 +1,6 @@
 ﻿using Manager.Infrastructure.PostgreSQL.DbContex;
 using Manager.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Manager.Infrastructure.PostgreSQL.Repositories
 {
@@ -20,11 +14,6 @@ namespace Manager.Infrastructure.PostgreSQL.Repositories
         public async Task<IExecutionResponse> GetAllAsync()
         {
             var result = await _context.Set<T>().ToListAsync();
-            return ExecutionResponse.Successful(result);
-        }
-        public async Task<IExecutionResponse> GetByIdAsync(Expression<Func<T, bool>> predicate)
-        {
-            var result = await _context.Set<T>().Where(predicate).ToListAsync();
             return ExecutionResponse.Successful(result);
         }
         public async Task<IExecutionResponse> AddAsync(T entity)

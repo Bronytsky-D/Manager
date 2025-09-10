@@ -6,4 +6,16 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="8.13.0" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.1.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Manager.Application.Astraction\Manager.Application.Astraction.csproj" />
+    <ProjectReference Include="..\Manager.Infrastructure.PostgreSQL\Manager.Infrastructure.PostgreSQL.csproj" />
+    <ProjectReference Include="..\Manager.Infrastructure\Manager.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>

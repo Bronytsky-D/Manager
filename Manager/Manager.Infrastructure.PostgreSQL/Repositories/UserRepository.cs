@@ -33,11 +33,13 @@ namespace Manager.Infrastructure.PostgreSQL.Repositories
             return ExecutionResponse.Successful(result);
         }
 
-        public async Task<IExecutionResponse> GetByIdAsync(Expression<Func<User, bool>> predicate)
+        public async Task<IExecutionResponse> FindOneAsync(Expression<Func<User, bool>> predicate)
         {
-            var result = await _context.Users.Where(predicate).ToListAsync();
+            var result = await _context.Users.SingleOrDefaultAsync(predicate);
 
-            return ExecutionResponse.Successful(result);
+            return result == null
+                ? ExecutionResponse.Failure("Not found")
+                : ExecutionResponse.Successful(result);
         }
 
         public async Task<IExecutionResponse> UpdateAsync(User entity)
