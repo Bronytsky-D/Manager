@@ -96,11 +96,31 @@ Configure the following settings in `appsettings.json` or via environment variab
     "Audience": "task-manager-users",
     "ExpiresInMinutes": 60
   },
-  "Logging": {
-    "LogLevel": {
+   "Serilog": {
+    "Using": [
+      "Serilog.Sinks.Console"
+    ],
+    "MinimumLevel": {
       "Default": "Information",
-      "Microsoft.AspNetCore": "Warning"
-    }
+      "Override": {
+        "Microsoft": "Information"
+      }
+    },
+    "WriteTo": [
+      {
+        "Name": "Console",
+        "Args": {
+          "outputTemplate": "{Timestamp:yyyy-MM-dd HH:mm:ss} [{Level}] {Message}{NewLine}{Exception}"
+        }
+      }
+    ],
+    "Enrich": [
+      "FromLogContext",
+      "WithMachineName",
+      "WithProcessId"
+    ]
+  },
+  "AllowedHosts": "*"
   }
 }
 ```
