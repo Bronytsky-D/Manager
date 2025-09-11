@@ -35,6 +35,9 @@ jobs:
         with:
           dotnet-version: 8.0.x
 
+      - name: Restore dependencies
+        run: dotnet restore Manager/Manager.sln
+      
       - name: Build
         run: dotnet build Manager/Manager.sln --no-restore --configuration Release
 
