@@ -36,9 +36,9 @@ jobs:
           dotnet-version: 8.0.x
 
       - name: Build
-        run: dotnet build D:/Lab/LunaEdge/Managar/Manager.sln --no-restore --configuration Release
+        run: dotnet build Manager/Manager.sln --no-restore --configuration Release
 
       - name: Run tests
-        run: dotnet test D:/Lab/LunaEdge/Managar/Manager.sln --no-build --verbosity normal
+        run: dotnet test Manager/Manager.sln --no-build --verbosity normal
         env:
           ConnectionStrings__DefaultConnection: ${{ secrets.ConnectionStrings__DefaultConnection }}
