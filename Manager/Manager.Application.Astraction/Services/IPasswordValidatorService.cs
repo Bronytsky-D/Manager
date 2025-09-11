@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace Manager.Application.Astraction.Services
 {
-    internal interface IPasswordValidatorService
+    public interface IPasswordValidatorService
     {
+        bool IsValid(string password);
+        IEnumerable<string> GetValidationErrors(string password);
     }
 }

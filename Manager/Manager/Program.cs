@@ -1,9 +1,11 @@
 using Manager.Infrastructure.PostgreSQL.DbContex;
 using Manager.IoC;
+using Manager.Middleware;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Serilog;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -81,6 +83,11 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+builder.Services.AddProblemDetails();
+
+builder.Host.UseSerilog((context, configuration) =>
+   configuration.ReadFrom.Configuration(context.Configuration));
 
 builder.Services.AddAuthorization();
 

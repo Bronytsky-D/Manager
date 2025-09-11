@@ -1,6 +1,7 @@
 ﻿using Manager.Application.Astraction.Services;
-using Manager.Doman.Entites;
+using Manager.Application.Services;
 using Manager.Common.DTOs;
+using Manager.Doman.Entites;
 using Manager.Infrastructure;
 using Manager.Infrastructure.PostgreSQL;
 using Microsoft.AspNetCore.Mvc;
@@ -27,6 +28,12 @@ namespace Manager.Controllers
         [HttpPost("register")]
         public async Task<IExecutionResponse> Register(AddUserRequstDTO request)
         {
+            var validator = new PasswordValidatorService();
+            if (!validator.IsValid(request.Password))
+            {
+                var errors = validator.GetValidationErrors(request.Password);
+                return ExecutionResponse.Failure(errors);
+            }
             var hashedPassword = _passwordHasherService.HashPassword(request.Password);
             var user = new User
             {
