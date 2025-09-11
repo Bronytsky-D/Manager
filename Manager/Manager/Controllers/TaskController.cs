@@ -88,23 +88,33 @@ namespace Manager.Controllers
 
             return respone;
         }
-        //[HttpPut("{id:guid}")]
-        //public async Task<IExecutionResponse> CangeTask(Guid id, [FromBody] UpdateTaskRequestDto request)
-        //{
-        //    var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
-        //    if (userIdClaim == null)
-        //        return ExecutionResponse.Failure("Not exist user");
+        [HttpPut("{id:guid}")]
+        public async Task<IExecutionResponse> UpdateTask(Guid id, [FromBody] UpdateTaskRequestDto request)
+        {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim == null)
+                return ExecutionResponse.Failure("User not authenticated");
 
-        //    Guid userId = Guid.Parse(userIdClaim.Value);
+            Guid userId = Guid.Parse(userIdClaim.Value);
 
-        //    var taskResult = await _taskService.FindTaskAsync(t => t.Id == id && t.UserId == userId);
-        //    var task = (TaskEntity)taskResult.Result;
+            var taskResult = await _taskService.FindTaskAsync(t => t.Id == id && t.UserId == userId);
+            if (!taskResult.Success || taskResult.Result == null)
+                return ExecutionResponse.Failure("Task not found");
 
-        //    var task = new TaskEntity
-        //    {
-        //        Id =
-        //    }
-        //    return new ExecutionResponse()
-        //}
+            var task = (TaskEntity)taskResult.Result;
+
+            task.Title = request.Title ?? task.Title;
+            task.Description = request.Description ?? task.Description;
+            task.DueDate = request.DueDate ?? task.DueDate;
+            task.Status = request.Status ?? task.Status;
+            task.Priority = request.Priority ?? task.Priority;
+            task.UpdatedAt = DateTime.UtcNow;
+
+            var updateResult = await _taskService.UpdateTaskAsync(task.Id, task);
+            if (!updateResult.Success)
+                return ExecutionResponse.Failure(updateResult.Errors);
+
+            return ExecutionResponse.Successful(task.Id);
+        }
     }
 }
