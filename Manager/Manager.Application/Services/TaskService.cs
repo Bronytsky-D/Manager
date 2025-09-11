@@ -78,13 +78,14 @@ namespace Manager.Application.Services
                 .Take(filters.PageSize)
                 .ToList();
 
-            return ExecutionResponse.Successful(new
+            var respone = new GetTasksPagedResultDto
             {
                 TotalCount = totalCount,
                 Page = filters.Page,
                 PageSize = filters.PageSize,
                 Items = items
-            });
+            };
+            return ExecutionResponse.Successful(respone);
         }
 
         public async Task<IExecutionResponse> FindTaskAsync(Expression<Func<TaskEntity, bool>> predicate)
