@@ -1,6 +1,6 @@
 ﻿namespace Manager.Infrastructure.PostgreSQL
 {
-    public class ExecutionResponse: IExecutionResponse
+    public class ExecutionResponse : IExecutionResponse
     {
         public ExecutionResponse(object data, IEnumerable<string> errors)
         {
@@ -42,4 +42,3 @@
         }
     }
 }
-

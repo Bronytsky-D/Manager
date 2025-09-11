@@ -1,5 +1,7 @@
+using Manager.Infrastructure.PostgreSQL.DbContex;
 using Manager.IoC;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
@@ -46,24 +48,6 @@ builder.Services.AddAuthentication(opt =>
             Console.WriteLine($"JWT fail: {ctx.Request.Headers.Authorization.ToString()}");
             return Task.CompletedTask;
         }
-        //OnChallenge = ctx =>
-        //{
-        //    Console.WriteLine($"JWT challenge: {ctx.Error} {ctx.ErrorDescription}");
-        //    return Task.CompletedTask;
-        //},
-        //OnMessageReceived = ctx =>
-        //{
-        //    Console.WriteLine("AUTH header: " +
-        //        ctx.Request.Headers.Authorization.ToString());
-        //    var auth = ctx.Request.Headers.Authorization.ToString();
-        //    if (auth.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
-        //    {
-        //        ctx.Token = auth.Substring("Bearer ".Length).Trim(); // тепер ctx.Token не пустий
-        //    }
-
-        //    Console.WriteLine("Parsed token: " + ctx.Token);
-        //    return Task.CompletedTask;
-        //},
     };
     opt.IncludeErrorDetails = true;
 });
@@ -97,6 +81,7 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
+
 builder.Services.AddAuthorization();
 
 
@@ -107,6 +92,11 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+}
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<ManagerDbContext>();
+    db.Database.Migrate();
 }
 
 app.UseHttpsRedirection();

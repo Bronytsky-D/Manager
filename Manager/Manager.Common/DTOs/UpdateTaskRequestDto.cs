@@ -1,6 +1,6 @@
 ﻿using Manager.Doman.Enums;
 
-namespace Manager.DTOs
+namespace Manager.Common.DTOs
 {
     public class UpdateTaskRequestDto
     {

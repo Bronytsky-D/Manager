@@ -1,4 +1,5 @@
 ﻿using Manager.Application.Astraction.Services;
+using Manager.Common.DTOs;
 using Manager.Doman.Entites;
 using Manager.Infrastructure;
 using Manager.Infrastructure.PostgreSQL;
@@ -32,13 +33,58 @@ namespace Manager.Application.Services
             return ExecutionResponse.Successful(task.Id);
         }
 
-        public async Task<IExecutionResponse> GetAllTasksByUserIdAsync(Guid UserId)
+        public async Task<IExecutionResponse> GetAllTasksByUserIdAsync(Guid userId, TaskFilterRequestDto filters)
         {
-            var result = await _taskRepository.GetAllTasksByUserIdAsync(UserId);
-            if (!result.Success)
-                return ExecutionResponse.Failure(result.Errors);
+            var allTasksResult = await _taskRepository.GetAllTasksByUserIdAsync(userId);
+            var allTasks = (List<TaskEntity>)allTasksResult.Result;
+            var query = allTasks.AsQueryable();
 
-            return ExecutionResponse.Successful(result.Result);
+            var status = filters.GetStatus();
+            if (status.HasValue)
+                query = query.Where(t => t.Status == status.Value);
+
+            var priority = filters.GetPriority();
+            if (priority.HasValue)
+                query = query.Where(t => t.Priority == priority.Value);
+
+            if (filters.DueDate.HasValue)
+            {
+                var date = filters.DueDate.Value.Date;
+                var next = date.AddDays(1);
+
+                query = query.Where(t => t.DueDate.HasValue && t.DueDate.Value >= date && t.DueDate.Value < next);
+            }
+
+            if (!string.IsNullOrEmpty(filters.SortBy))
+            {
+                query = filters.SortBy.ToLower() switch
+                {
+                    "duedate" => filters.Desc
+                        ? query.OrderByDescending(t => t.DueDate)
+                        : query.OrderBy(t => t.DueDate),
+
+                    "priority" => filters.Desc
+                        ? query.OrderByDescending(t => t.Priority)
+                        : query.OrderBy(t => t.Priority),
+
+                    _ => query
+                };
+            }
+
+            
+            var totalCount = query.Count();
+            var items = query
+                .Skip((filters.Page - 1) * filters.PageSize)
+                .Take(filters.PageSize)
+                .ToList();
+
+            return ExecutionResponse.Successful(new
+            {
+                TotalCount = totalCount,
+                Page = filters.Page,
+                PageSize = filters.PageSize,
+                Items = items
+            });
         }
 
         public async Task<IExecutionResponse> FindTaskAsync(Expression<Func<TaskEntity, bool>> predicate)

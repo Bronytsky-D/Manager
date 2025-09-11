@@ -1,6 +1,6 @@
 ﻿using Manager.Application.Astraction.Services;
 using Manager.Doman.Entites;
-using Manager.DTOs;
+using Manager.Common.DTOs;
 using Manager.Infrastructure;
 using Manager.Infrastructure.PostgreSQL;
 using Microsoft.AspNetCore.Mvc;
@@ -11,7 +11,6 @@ namespace Manager.Controllers
     [ApiController]
     public class UserController : Controller
     {
-        //ToDo add ExecutionResponse and implement the logic
         private readonly IUserService _userService;
         private readonly IPasswordHasherService _passwordHasherService;
         private readonly IJwtTokenService _jwtTokenService;

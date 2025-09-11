@@ -1,8 +1,8 @@
 ﻿using Manager.Doman.Enums;
 
-namespace Manager.DTOs
+namespace Manager.Common.DTOs
 {
-    public class CreateTaskRequstDTO
+    public class CreateTaskRequestDto
     {
         public string Title { get; set; }
         public string? Description { get; set; }

@@ -1,6 +1,6 @@
-﻿namespace Manager.DTOs
+﻿namespace Manager.Common.DTOs
 {
-    public class AddUserRequstDTO
+   public class AddUserRequstDTO
     {
         public string Name { get; set;}
         public string Email { get; set; }

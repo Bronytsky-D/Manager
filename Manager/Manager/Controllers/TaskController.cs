@@ -1,12 +1,11 @@
 ﻿using Manager.Application.Astraction.Services;
+using Manager.Common.DTOs;
+using Manager.Infrastructure.PostgreSQL;
 using Manager.Doman.Entites;
 using Manager.Doman.Enums;
-using Manager.DTOs;
 using Manager.Infrastructure;
-using Manager.Infrastructure.PostgreSQL;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
 namespace Manager.Controllers
@@ -23,7 +22,7 @@ namespace Manager.Controllers
         }
 
         [HttpPost]
-        public async Task<IExecutionResponse> CreateTask(CreateTaskRequstDTO reques)  
+        public async Task<IExecutionResponse> CreateTask(CreateTaskRequestDto reques)  
         {
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             if (userIdClaim == null)
@@ -47,7 +46,7 @@ namespace Manager.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllTasks([FromQuery] string filter)
+        public async Task<IActionResult> GetAllTasks([FromQuery] TaskFilterRequestDto filters)
         {
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             if (userIdClaim == null)
@@ -55,7 +54,7 @@ namespace Manager.Controllers
 
             Guid userIdGuid = Guid.Parse(userIdClaim);
 
-            var respone = await _taskService.GetAllTasksByUserIdAsync(userIdGuid);
+            var respone = await _taskService.GetAllTasksByUserIdAsync(userIdGuid, filters);
             return Ok(respone);
         }
     
@@ -89,7 +88,7 @@ namespace Manager.Controllers
 
             return respone;
         }
-        //[HttpPut("{id: guid}")]
+        //[HttpPut("{id:guid}")]
         //public async Task<IExecutionResponse> CangeTask(Guid id, [FromBody] UpdateTaskRequestDto request)
         //{
         //    var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
@@ -98,12 +97,12 @@ namespace Manager.Controllers
 
         //    Guid userId = Guid.Parse(userIdClaim.Value);
 
-        //    var taskResult = await _taskService.FindTaskAsync(t => t.Id == id);
+        //    var taskResult = await _taskService.FindTaskAsync(t => t.Id == id && t.UserId == userId);
         //    var task = (TaskEntity)taskResult.Result;
 
         //    var task = new TaskEntity
         //    {
-        //        Id = 
+        //        Id =
         //    }
         //    return new ExecutionResponse()
         //}

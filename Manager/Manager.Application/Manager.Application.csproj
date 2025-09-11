@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Manager.Application.Astraction\Manager.Application.Astraction.csproj" />
+    <ProjectReference Include="..\Manager.Common\Manager.Common.csproj" />
     <ProjectReference Include="..\Manager.Infrastructure.PostgreSQL\Manager.Infrastructure.PostgreSQL.csproj" />
     <ProjectReference Include="..\Manager.Infrastructure\Manager.Infrastructure.csproj" />
   </ItemGroup>

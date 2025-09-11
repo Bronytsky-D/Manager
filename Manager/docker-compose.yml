@@ -1,0 +1,38 @@
+version: "3.9"
+
+networks:
+  dev:
+    driver: bridge
+
+volumes:
+  db-data:
+
+services:
+  manager:
+    image: manager
+    build:
+      context: .
+      dockerfile: Manager/Dockerfile
+    depends_on:
+      - db
+    environment:
+      ConnectionStrings__DefaultConnection: "Host=db;Port=5432;Username=postgres;Password=yhy121352;Database=managerdb"
+    ports:
+      - "8080:8080"
+    networks:
+      - dev
+
+  db:
+    image: postgres:15
+    container_name: db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: yhy121352
+      POSTGRES_DB: managerdb
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - dev
