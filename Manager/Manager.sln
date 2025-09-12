@@ -5,7 +5,7 @@ VisualStudioVersion = 17.14.36109.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Manager", "Manager\Manager.csproj", "{A0927DF9-6B37-4FA2-BED4-D3C7617E9E6D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Manager.Doman", "Manager.Doman\Manager.Doman.csproj", "{2A5FB048-0F50-4743-BF60-D34F0EC34579}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Manager.Domain", "Manager.Doman\Manager.Domain.csproj", "{2A5FB048-0F50-4743-BF60-D34F0EC34579}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Manager.Infrastructure", "Manager.Infrastructure\Manager.Infrastructure.csproj", "{807C0808-DC3C-4169-AEDF-57F6A33DC0A0}"
 EndProject

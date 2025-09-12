@@ -87,7 +87,7 @@ namespace Manager.Infrastructure.Tests.Repositories
             await _context.Tasks.AddAsync(task);
             await _context.SaveChangesAsync();
 
-            var result = await _repository.FindOneAsync(t => t.Title == "Find Me");
+            var result = await _repository.FindAsync(t => t.Title == "Find Me");
 
             Assert.True(result.Success);
             var found = (TaskEntity)result.Result;

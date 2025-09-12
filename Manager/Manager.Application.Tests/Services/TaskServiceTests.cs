@@ -100,7 +100,7 @@ public class TaskServiceTests
     public async Task FindTaskAsync_Should_Return_Task_When_Found()
     {
         var task = new TaskEntity { Title = "FoundTask" };
-        _mockRepo.Setup(r => r.FindOneAsync(It.IsAny<Expression<Func<TaskEntity, bool>>>()))
+        _mockRepo.Setup(r => r.FindAsync(It.IsAny<Expression<Func<TaskEntity, bool>>>()))
                  .ReturnsAsync(ExecutionResponse.Successful(task));
 
         var result = await _service.FindTaskAsync(t => t.Title == "FoundTask");
@@ -113,7 +113,7 @@ public class TaskServiceTests
     public async Task UpdateTaskAsync_Should_Return_Success_When_Repository_Succeeds()
     {
         var task = new TaskEntity { Id = Guid.NewGuid(), Title = "Old" };
-        _mockRepo.Setup(r => r.FindOneAsync(t => t.Id == task.Id))
+        _mockRepo.Setup(r => r.FindAsync(t => t.Id == task.Id))
                  .ReturnsAsync(ExecutionResponse.Successful(task));
         _mockRepo.Setup(r => r.UpdateAsync(task))
                  .ReturnsAsync(ExecutionResponse.Successful(task));

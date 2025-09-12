@@ -43,7 +43,7 @@ namespace Manager.Application.Services
 
         public async Task<IExecutionResponse> FindUserAsync(Expression<Func<User, bool>> predicate)
         {
-            var result = await _userRepository.FindOneAsync(predicate);
+            var result = await _userRepository.FindAsync(predicate);
             if(!result.Success) 
                 return ExecutionResponse.Failure(result.Errors);
             

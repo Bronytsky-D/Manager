@@ -67,7 +67,7 @@ namespace Manager.Infrastructure.Tests.Repositories
             await context.SaveChangesAsync();
 
             var repo = new UserRepository(context);
-            var result = await repo.FindOneAsync(u => u.UserName == "FindMe");
+            var result = await repo.FindAsync(u => u.UserName == "FindMe");
 
             Assert.True(result.Success);
             Assert.Equal("FindMe", ((User)result.Result).UserName);
@@ -79,7 +79,7 @@ namespace Manager.Infrastructure.Tests.Repositories
             var context = GetDbContext();
             var repo = new UserRepository(context);
 
-            var result = await repo.FindOneAsync(u => u.UserName == "NonExisting");
+            var result = await repo.FindAsync(u => u.UserName == "NonExisting");
 
             Assert.False(result.Success);
             Assert.Equal("Not found", result.Errors.First());

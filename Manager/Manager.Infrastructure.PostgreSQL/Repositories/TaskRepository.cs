@@ -44,7 +44,7 @@ namespace Manager.Infrastructure.PostgreSQL.Repositories
             return ExecutionResponse.Successful(result);
         }
 
-        public async Task<IExecutionResponse> FindOneAsync(Expression<Func<TaskEntity, bool>> predicate)
+        public async Task<IExecutionResponse> FindAsync(Expression<Func<TaskEntity, bool>> predicate)
         {
             var result = await _context.Tasks.SingleOrDefaultAsync(predicate);
             

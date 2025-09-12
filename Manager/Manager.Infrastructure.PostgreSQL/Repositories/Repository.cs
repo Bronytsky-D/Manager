@@ -11,6 +11,13 @@ namespace Manager.Infrastructure.PostgreSQL.Repositories
         {
             _context = context;
         }
+        public async Task<IExecutionResponse> FindAsync(System.Linq.Expressions.Expression<Func<T, bool>> predicate)
+        {
+            var result = await _context.Set<T>().SingleOrDefaultAsync(predicate);
+            if (result == null)
+                return ExecutionResponse.Failure("Not found");
+            return ExecutionResponse.Successful(result);
+        }
         public async Task<IExecutionResponse> GetAllAsync()
         {
             var result = await _context.Set<T>().ToListAsync();

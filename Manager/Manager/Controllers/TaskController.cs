@@ -26,7 +26,7 @@ namespace Manager.Controllers
         {
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             if (userIdClaim == null)
-                return ExecutionResponse.Failure("");
+                return ExecutionResponse.Failure("User not authorized.");
             
             Guid userIdGuid = Guid.Parse(userIdClaim);
 
@@ -63,7 +63,7 @@ namespace Manager.Controllers
         {
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             if (userIdClaim == null)
-                return ExecutionResponse.Failure("");
+                return ExecutionResponse.Failure("User not authorized.");
 
             Guid userId = Guid.Parse(userIdClaim);
 
