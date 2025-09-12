@@ -59,16 +59,16 @@ namespace Manager.Controllers
         }
     
         [HttpGet("{id:guid}")]
-        public async Task<IActionResult> GetTaskById(Guid id)
+        public async Task<IExecutionResponse> GetTaskById(Guid id)
         {
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             if (userIdClaim == null)
-                return Unauthorized();
+                return ExecutionResponse.Failure("");
 
             Guid userId = Guid.Parse(userIdClaim);
 
             var respone = await _taskService.FindTaskAsync(t => t.Id == id && t.UserId == userId);
-            return Ok();
+            return respone;
         }
         [HttpDelete("{id:guid}")]
         public async Task<IExecutionResponse> DeleteTask(Guid id)
