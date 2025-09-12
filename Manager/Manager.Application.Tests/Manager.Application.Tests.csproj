@@ -20,7 +20,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Manager.Application.Astraction\Manager.Application.Astraction.csproj" />
     <ProjectReference Include="..\Manager.Application\Manager.Application.csproj" />
-    <ProjectReference Include="..\Manager.Doman\Manager.Doman.csproj" />
+    <ProjectReference Include="..\Manager.Domain\Manager.Domain.csproj" />
     <ProjectReference Include="..\Manager.Infrastructure\Manager.Infrastructure.csproj" />
   </ItemGroup>
 

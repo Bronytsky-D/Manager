@@ -1,6 +1,6 @@
 ﻿using Manager.Application.Astraction.Services;
 using Manager.Common.DTOs;
-using Manager.Doman.Entites;
+using Manager.Domain.Entites;
 using Manager.Infrastructure;
 using Manager.Infrastructure.PostgreSQL;
 using Manager.Infrastructure.Repositories;
@@ -90,7 +90,7 @@ namespace Manager.Application.Services
 
         public async Task<IExecutionResponse> FindTaskAsync(Expression<Func<TaskEntity, bool>> predicate)
         {
-            var result = await _taskRepository.FindOneAsync(predicate);
+            var result = await _taskRepository.FindAsync(predicate);
             if (!result.Success)
                 return ExecutionResponse.Failure(result.Errors);
 
@@ -99,7 +99,7 @@ namespace Manager.Application.Services
 
         public async Task<IExecutionResponse> UpdateTaskAsync(Guid taskId, TaskEntity task)
         {
-            var taskResult = await _taskRepository.FindOneAsync(t => t.Id == taskId);
+            var taskResult = await _taskRepository.FindAsync(t => t.Id == taskId);
 
             var result = await _taskRepository.UpdateAsync(task);
             if (!result.Success)

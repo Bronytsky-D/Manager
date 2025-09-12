@@ -1,6 +1,6 @@
 ﻿using Moq;
 using Manager.Application.Services;
-using Manager.Doman.Entites;
+using Manager.Domain.Entites;
 using System.Linq.Expressions;
 using Manager.Infrastructure.Repositories;
 using Manager.Infrastructure.PostgreSQL;
@@ -76,14 +76,14 @@ public class UserServiceTests
     public async Task FindUserAsync_Should_Return_User_When_Found()
     {
         var user = new User { UserName = "found" };
-        _mockRepo.Setup(r => r.FindOneAsync(It.IsAny<Expression<Func<User, bool>>>()))
+        _mockRepo.Setup(r => r.FindAsync(It.IsAny<Expression<Func<User, bool>>>()))
                  .ReturnsAsync(ExecutionResponse.Successful(user));
 
         var result = await _service.FindUserAsync(u => u.UserName == "found");
 
         Assert.True(result.Success);
         Assert.Equal(user, result.Result);
-        _mockRepo.Verify(r => r.FindOneAsync(It.IsAny<Expression<Func<User, bool>>>()), Times.Once);
+        _mockRepo.Verify(r => r.FindAsync(It.IsAny<Expression<Func<User, bool>>>()), Times.Once);
     }
 
     [Fact]

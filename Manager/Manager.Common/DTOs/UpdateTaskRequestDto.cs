@@ -1,4 +1,4 @@
-﻿using Manager.Doman.Enums;
+﻿using Manager.Domain.Enums;
 
 namespace Manager.Common.DTOs
 {

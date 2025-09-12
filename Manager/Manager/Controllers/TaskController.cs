@@ -1,8 +1,8 @@
 ﻿using Manager.Application.Astraction.Services;
 using Manager.Common.DTOs;
 using Manager.Infrastructure.PostgreSQL;
-using Manager.Doman.Entites;
-using Manager.Doman.Enums;
+using Manager.Domain.Entites;
+using Manager.Domain.Enums;
 using Manager.Infrastructure;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -26,7 +26,7 @@ namespace Manager.Controllers
         {
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             if (userIdClaim == null)
-                return ExecutionResponse.Failure("");
+                return ExecutionResponse.Failure("User not authorized.");
             
             Guid userIdGuid = Guid.Parse(userIdClaim);
 
@@ -59,16 +59,16 @@ namespace Manager.Controllers
         }
     
         [HttpGet("{id:guid}")]
-        public async Task<IActionResult> GetTaskById(Guid id)
+        public async Task<IExecutionResponse> GetTaskById(Guid id)
         {
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             if (userIdClaim == null)
-                return Unauthorized();
+                return ExecutionResponse.Failure("User not authorized.");
 
             Guid userId = Guid.Parse(userIdClaim);
 
             var respone = await _taskService.FindTaskAsync(t => t.Id == id && t.UserId == userId);
-            return Ok();
+            return respone;
         }
         [HttpDelete("{id:guid}")]
         public async Task<IExecutionResponse> DeleteTask(Guid id)

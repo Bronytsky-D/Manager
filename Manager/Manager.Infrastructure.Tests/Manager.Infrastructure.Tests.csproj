@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Manager.Doman\Manager.Doman.csproj" />
+    <ProjectReference Include="..\Manager.Domain\Manager.Domain.csproj" />
     <ProjectReference Include="..\Manager.Infrastructure.PostgreSQL\Manager.Infrastructure.PostgreSQL.csproj" />
     <ProjectReference Include="..\Manager.Infrastructure\Manager.Infrastructure.csproj" />
   </ItemGroup>

@@ -1,5 +1,5 @@
 ﻿
-namespace Manager.Doman.Entites
+namespace Manager.Domain.Entites
 {
     public class User
     {

@@ -1,4 +1,4 @@
-﻿using Manager.Doman.Entites;
+﻿using Manager.Domain.Entites;
 
 namespace Manager.Common.DTOs
 {

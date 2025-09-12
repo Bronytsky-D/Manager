@@ -1,4 +1,4 @@
-﻿using Manager.Doman.Entites;
+﻿using Manager.Domain.Entites;
 using Manager.Infrastructure.PostgreSQL.DbContex;
 using Manager.Infrastructure.PostgreSQL.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -87,7 +87,7 @@ namespace Manager.Infrastructure.Tests.Repositories
             await _context.Tasks.AddAsync(task);
             await _context.SaveChangesAsync();
 
-            var result = await _repository.FindOneAsync(t => t.Title == "Find Me");
+            var result = await _repository.FindAsync(t => t.Title == "Find Me");
 
             Assert.True(result.Success);
             var found = (TaskEntity)result.Result;
