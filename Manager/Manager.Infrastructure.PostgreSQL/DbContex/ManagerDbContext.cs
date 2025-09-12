@@ -1,4 +1,4 @@
-﻿using Manager.Doman.Entites;
+﻿using Manager.Domain.Entites;
 using Microsoft.EntityFrameworkCore;
 
 namespace Manager.Infrastructure.PostgreSQL.DbContex

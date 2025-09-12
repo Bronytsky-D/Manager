@@ -1,5 +1,5 @@
 ﻿using Manager.Application.Astraction.Services;
-using Manager.Doman.Entites;
+using Manager.Domain.Entites;
 using Manager.Infrastructure;
 using Manager.Infrastructure.PostgreSQL;
 using Manager.Infrastructure.Repositories;

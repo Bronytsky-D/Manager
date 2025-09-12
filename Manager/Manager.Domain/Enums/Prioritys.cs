@@ -1,5 +1,5 @@
 ﻿
-namespace Manager.Doman.Enums
+namespace Manager.Domain.Enums
 {
     public enum Prioritys
     {

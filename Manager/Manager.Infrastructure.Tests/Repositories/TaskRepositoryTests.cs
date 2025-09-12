@@ -1,4 +1,4 @@
-﻿using Manager.Doman.Entites;
+﻿using Manager.Domain.Entites;
 using Manager.Infrastructure.PostgreSQL.DbContex;
 using Manager.Infrastructure.PostgreSQL.Repositories;
 using Microsoft.EntityFrameworkCore;

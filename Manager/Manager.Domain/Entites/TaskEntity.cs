@@ -1,7 +1,7 @@
-﻿using Manager.Doman.Enums;
+﻿using Manager.Domain.Enums;
 using System.ComponentModel.DataAnnotations;
 
-namespace Manager.Doman.Entites
+namespace Manager.Domain.Entites
 {
     public class TaskEntity
     {

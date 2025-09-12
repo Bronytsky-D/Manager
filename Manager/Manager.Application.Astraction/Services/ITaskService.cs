@@ -1,5 +1,5 @@
 ﻿using Manager.Common.DTOs;
-using Manager.Doman.Entites;
+using Manager.Domain.Entites;
 using Manager.Infrastructure;
 using System.Linq.Expressions;
 

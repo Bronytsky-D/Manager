@@ -1,5 +1,5 @@
 ﻿using Manager.Application.Astraction.Services;
-using Manager.Doman.Entites;
+using Manager.Domain.Entites;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.Data;

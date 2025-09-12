@@ -1,8 +1,8 @@
 ﻿using Manager.Application.Astraction.Services;
 using Manager.Common.DTOs;
 using Manager.Infrastructure.PostgreSQL;
-using Manager.Doman.Entites;
-using Manager.Doman.Enums;
+using Manager.Domain.Entites;
+using Manager.Domain.Enums;
 using Manager.Infrastructure;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

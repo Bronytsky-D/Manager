@@ -1,5 +1,4 @@
-﻿
-using Manager.Doman.Entites;
+﻿using Manager.Domain.Entites;
 using System.Linq.Expressions;
 
 namespace Manager.Infrastructure.Repositories

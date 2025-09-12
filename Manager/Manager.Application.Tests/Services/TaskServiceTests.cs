@@ -1,7 +1,7 @@
 ﻿using Manager.Application.Services;
 using Manager.Common.DTOs;
-using Manager.Doman.Entites;
-using Manager.Doman.Enums;
+using Manager.Domain.Enums;
+using Manager.Domain.Entites;
 using Manager.Infrastructure.PostgreSQL;
 using Manager.Infrastructure.Repositories;
 using Moq;
