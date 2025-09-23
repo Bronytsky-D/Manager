@@ -61,7 +61,8 @@ jobs:
         with:
           app-name: 'manager-003'
           slot-name: 'Production'
-          package: ${{env.DOTNET_ROOT}}/myapp
+          package: .
 
           
+
 
